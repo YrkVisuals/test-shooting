@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style-en.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | YRK Visuals</title>
+</head>
+<body>
+<header>
+    <div id="box_header_gauche"><a href="index.html">YRK<span>VISUALS</span></a></div>
+    <div id="box_header_droite">
+        <div id="box_header_galerie"><a href="galerie-en.html">Gallery</a></div>
+        <div id="box_header_tarifs"><a href="tarifs-en.html">Pricing</a></div>
+        <div id="box_header_contact"><a href="contact-en.html">Contact</a></div>
+        <div id="box_header_langue" tabindex="0" aria-label="Choose a language">
+            <span>Language</span>
+            <div class="menu-langues"><a href="contact-fr.html" lang="fr">Fran&#231;ais</a><a href="contact-en.html" lang="en" aria-current="page">English</a></div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div id="premierbloc">
+        <p id="eyebrow">Contact</p>
+        <h1 id="titre">Let's talk about<br><span>your project.</span></h1>
+        <p id="description">A car, an idea, a location. Get in touch to create content that feels like you.</p>
+    </div>
+
+    <div id="deuxiemebloc">
+        <div id="contact">
+            <h1>Get in touch</h1>
+            <p>
+                To book a photoshoot, request a quote or simply<br>
+                discuss your project, fill in the form or reach out<br>
+                to me directly on Instagram.
+            </p>
+            <h3>Instagram</h3>
+            <a href="https://www.instagram.com/yrk.visuals/" target="_blank" rel="noopener noreferrer">@YRK.VISUALS</a>
+        </div>
+        <div id="form">
+            <form id="contact-form" action="https://formsubmit.co/ajax/yrkvisuals.pro@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Photoshoot enquiry">
+                <input type="hidden" name="_captcha" value="true">
+                <p>Contact me by:</p>
+                <div class="checkbox-row">
+                    <label><input type="radio" name="Contact method" value="telephone"> Phone</label>
+                    <label><input type="radio" name="Contact method" value="mail"> Mail</label>
+                    <label><input type="radio" name="Contact method" value="instagram"> Instagram</label>
+                    <label><input type="radio" name="Contact method" value="tiktok"> TikTok</label>
+                </div>
+                <input type="text" id="nom" name="Name" required placeholder="Name">
+                <input type="email" id="mail" name="Email" placeholder="Email">
+                <div class="telephone-field">
+                    <input type="tel" id="telephone" name="Phone" placeholder="Phone">
+                </div>
+                <input type="text" id="voiture" name="Car" required placeholder="Car">
+                <select id="formule" name="Package" required>
+                    <option value="" selected disabled>Choose a package</option>
+                    <option value="starter">Starter</option>
+                    <option value="cinematic">Cinematic</option>
+                    <option value="premium">Premium</option>
+                </select>
+                <textarea id="textarea" name="Message" rows="4" placeholder="Tell me about your project"></textarea>
+                <div class="contact-actions">
+                    <button class="contact-action contact-submit" type="submit">Submit and open email draft</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div id="box_footer_gauche">
+        <h4 id="text_footer_reseaux">SOCIALS</h4>
+        <a id="bouton_footer_insta" href="https://www.instagram.com/yrk.visuals/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"></a>
+        <a id="bouton_footer_tiktok" href="https://www.tiktok.com/@yrk.visuals" target="_blank" rel="noopener noreferrer" aria-label="TikTok"></a>
+    </div>
+    <div id="box_footer_millieu"><h2 id="text_footer_millieu">&copy; 2026 YRK Visuals</h2></div>
+    <div id="box_footer_droite"><h3 id="text_footer_droite">PHOTO &bull; VIDEO &bull; AUTOMOTIVE</h3></div>
+</footer>
+<script>
+    document.getElementById("contact-form").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!form.reportValidity()) return;
+
+        const data = new FormData(form);
+        const fields = Object.fromEntries(data.entries());
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: data,
+                headers: { "Accept": "application/json" }
+            });
+            if (!response.ok) throw new Error("Submission failed.");
+
+            const subject = encodeURIComponent(fields._subject);
+            const body = encodeURIComponent(Object.entries(fields)
+                .filter(([key]) => !key.startsWith("_"))
+                .map(([key, value]) => `${key}: ${value}`)
+                .join("\n"));
+            window.location.href = `mailto:yrkvisuals.pro@gmail.com?subject=${subject}&body=${body}`;
+        } catch (error) {
+            alert("Automatic submission failed. Check your connection and try again.");
+        }
+    });
+</script>
+</body>
+</html>

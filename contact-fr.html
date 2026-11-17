@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet" href="style-fr.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarifs</title>
+</head>
+<body>
+
+<!--header-->
+
+<header>
+    <div id="box_header_gauche">
+        <a href="index.html">
+                YRK<span>VISUALS</span>
+        </a>
+    </div>
+    <div id="box_header_droite">
+        <div id="box_header_galerie">
+            <a href="galerie-fr.html">
+                galerie
+            </a>
+        </div>
+        <div id="box_header_tarifs">
+            <a href="tarifs-fr.html">
+                tarifs
+            </a>
+        </div>
+        <div id="box_header_contact">
+            <a href="contact-fr.html">
+                contact
+            </a>
+        </div>
+        <div id="box_header_langue" tabindex="0" aria-label="Choisir une langue">
+            <span>Langue</span>
+            <div class="menu-langues"><a href="contact-fr.html" lang="fr" aria-current="page">Fran&#231;ais</a><a href="contact-en.html" lang="en">English</a></div>
+        </div>
+    </div>
+</header>
+
+<!--main-->
+<!--premier bloc-->
+
+<main>
+    <div id="premierbloc">
+        <p id="eyebrow">
+            contact
+        </p>
+        <h1 id="titre">
+            parlons de
+            <br>
+            <span>
+            votre projet.
+            </span>
+        </h1>
+        <p id="description">
+            Une voiture, une idée, un lieu. Contacte-moi pour créer un contenu qui te ressemble.
+        </p>
+    </div>
+
+<!--deuxieme bloc-->
+
+    <div id="deuxiemebloc">
+        <div id="contact">
+            <h1>
+                contactez-moi
+            </h1>
+            <p>
+                Pour réserver un shooting, demander un devis ou simplement
+                <br>
+                discuter de votre projet, remplissez le formulaire ou contactez-moi
+                <br>
+                directement sur Instagram.
+            </p>
+            <h3>
+                instagram
+            </h3>
+            <a href="https://www.instagram.com/yrk.visuals/" target="_blank">
+                @YRK.VISUALS
+            </a>
+        </div>
+        <div id="form">
+            <form id="contact-form" action="https://formsubmit.co/ajax/yrkvisuals.pro@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Demande de shooting">
+                <input type="hidden" name="_captcha" value="true">
+                <p>Contactez-moi par :</p>
+                <div class="checkbox-row">
+                    <label><input type="radio" name="Contact method" value="telephone"> T&eacute;l&eacute;phone</label>
+                    <label><input type="radio" name="Contact method" value="mail"> Mail</label>
+                    <label><input type="radio" name="Contact method" value="instagram"> Instagram</label>
+                    <label><input type="radio" name="Contact method" value="tiktok"> TikTok</label>
+                </div>
+                <input type="text" id="nom" name="Nom" required placeholder="Nom">
+                <input type="email" id="mail" name="E-mail" placeholder="E-mail">
+                <div class="telephone-field">
+                    <input type="tel" id="telephone" name="T&eacute;l&eacute;phone" placeholder="T&eacute;l&eacute;phone">
+                </div>
+                <input type="text" id="voiture" name="Voiture" required placeholder="Voiture">
+                <select id="formule" name="Formule" required>
+                    <option value="" selected disabled>Choisir une formule</option>
+                    <option value="starter">Starter</option>
+                    <option value="cinematic">Cinematic</option>
+                    <option value="premium">Premium</option>
+                </select>
+                <textarea id="textarea" name="Message" rows="4" placeholder="D?crivez-moi votre projet"></textarea>
+                <div class="contact-actions">
+                    <button class="contact-action contact-submit" type="submit">Envoyer et ouvrir le brouillon e-mail</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<!--footer-->
+
+<footer>
+    <div id="box_footer_gauche">
+        <h4 id="text_footer_reseaux">RESEAUX</h4>
+        <a id="bouton_footer_insta" href="https://www.instagram.com/yrk.visuals/" target="_blank"></a>
+        <a id="bouton_footer_tiktok" href="https://www.tiktok.com/@yrk.visuals" target="_blank"></a>
+    </div>
+
+    <div id="box_footer_millieu">
+        <h2 id="text_footer_millieu">© 2026 YRK Visuals</h2>
+    </div>
+
+    <div id="box_footer_droite">
+        <h3 id="text_footer_droite">PHOTO • VIDEO • AUTOMOBILE</h3>
+    </div>
+</footer>
+<script>
+    document.getElementById("contact-form").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!form.reportValidity()) return;
+
+        const data = new FormData(form);
+        const fields = Object.fromEntries(data.entries());
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: data,
+                headers: { "Accept": "application/json" }
+            });
+            if (!response.ok) throw new Error("Submission failed.");
+
+            const subject = encodeURIComponent(fields._subject);
+            const body = encodeURIComponent(Object.entries(fields)
+                .filter(([key]) => !key.startsWith("_"))
+                .map(([key, value]) => `${key} : ${value}`)
+                .join("\n"));
+            window.location.href = `mailto:yrkvisuals.pro@gmail.com?subject=${subject}&body=${body}`;
+        } catch (error) {
+            alert("L?envoi automatique a ?chou?. V?rifiez votre connexion puis r?essayez.");
+        }
+    });
+</script>
+<script>
+    const formuleDemandee = new URLSearchParams(window.location.search).get("formule");
+    if (["starter", "cinematic", "premium"].includes(formuleDemandee)) {
+        document.getElementById("formule").value = formuleDemandee;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+-faire le carrousel
+-trouver des images
+-finir la galerie
+-faire en sorte que les infos soient enregistrées dans un ficher Excel(js)
